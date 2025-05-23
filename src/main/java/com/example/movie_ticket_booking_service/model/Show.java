@@ -13,7 +13,7 @@ public class Show {
     private Integer id;
 
     @JoinColumn(name = "id")
-    @OneToOne
+    @ManyToOne
     private Movie movie;
 
     @Column
