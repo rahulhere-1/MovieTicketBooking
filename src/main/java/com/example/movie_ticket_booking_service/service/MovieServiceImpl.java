@@ -20,7 +20,7 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     public MovieDTO getMovieDetails(Long movieId){
-        Movie movie = movieRepository.findById(movieId).orElseThrow(MovieNotFoundException::new);
+        Movie movie = movieRepository.findById(movieId).orElseThrow(() -> new MovieNotFoundException("Movie Not Found"));
         MovieDTO dto = new MovieDTO();
         dto.setMovieId(movie.getId());
         dto.setMovieName(movie.getName());

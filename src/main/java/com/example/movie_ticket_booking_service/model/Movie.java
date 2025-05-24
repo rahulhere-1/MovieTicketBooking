@@ -36,8 +36,8 @@ public class Movie {
     @Enumerated(EnumType.STRING)
     private Genre genre;
 
-    @Column(columnDefinition = "enum DEFAULT ACTIVE")
+    @Column()
     @Enumerated(EnumType.STRING)
-    private Status status;
+    private Status status =  Status.ACTIVE;
 
 }

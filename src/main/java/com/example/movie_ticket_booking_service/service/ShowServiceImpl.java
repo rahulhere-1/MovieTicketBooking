@@ -4,7 +4,7 @@ import com.example.movie_ticket_booking_service.dto.MovieDTO;
 import com.example.movie_ticket_booking_service.dto.ShowDTO;
 import com.example.movie_ticket_booking_service.exception.MovieNotFoundException;
 import com.example.movie_ticket_booking_service.exception.ShowNotFoundException;
-import com.example.movie_ticket_booking_service.exception.UnableToCreateShowExcetion; 
+import com.example.movie_ticket_booking_service.exception.UnableToCreateShowExcetion;
 import com.example.movie_ticket_booking_service.model.Movie;
 import com.example.movie_ticket_booking_service.model.Show;
 import com.example.movie_ticket_booking_service.repo.MovieRepository;
@@ -26,7 +26,7 @@ public class ShowServiceImpl implements ShowService {
 
     @Override
     public ShowDTO getShowDetails(Long id){
-        Show show = showRepository.findById(id).orElseThrow(ShowNotFoundException::new);
+        Show show = showRepository.findById(id).orElseThrow(() -> new ShowNotFoundException("Show NOT FOUND"));
         ShowDTO dto = new ShowDTO();
         dto.setShowTime(show.getTime());
         dto.setShowId(show.getId());
@@ -65,10 +65,10 @@ public class ShowServiceImpl implements ShowService {
     @Override
     public void createShowTime(ShowDTO showDTO){
         Long movieId = showDTO.getMovieId();
-        Movie movie = movieRepository.findById(movieId).orElseThrow(MovieNotFoundException::new);
+        Movie movie = movieRepository.findById(movieId).orElseThrow(() -> new MovieNotFoundException("Movie Not Found"));
         Show show  = new Show();
-        if(showDTO.getShowTime()==null || movie==null){
-            throw new UnableToCreateShowExcetion();
+        if(showDTO.getShowTime()==null){
+            throw new UnableToCreateShowExcetion("Show time not mentioned");
         }
         show.setTime(showDTO.getShowTime());
         show.setMovie(movie);
