@@ -1,11 +1,14 @@
 package com.example.movie_ticket_booking_service.model;
 
 import com.example.movie_ticket_booking_service.enums.Genre;
+import com.example.movie_ticket_booking_service.enums.Status;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Data
@@ -27,10 +30,14 @@ public class Movie {
     private Integer duration;
 
     @Column
-    private Date releaseDate;
+    private LocalDateTime releaseDate;
 
     @Column
     @Enumerated(EnumType.STRING)
     private Genre genre;
+
+    @Column(columnDefinition = "enum DEFAULT ACTIVE")
+    @Enumerated(EnumType.STRING)
+    private Status status;
 
 }

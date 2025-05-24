@@ -8,6 +8,9 @@ import com.example.movie_ticket_booking_service.repo.MovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class MovieServiceImpl implements MovieService {
 
@@ -23,6 +26,21 @@ public class MovieServiceImpl implements MovieService {
         dto.setMovieName(movie.getName());
         dto.setDuration(movie.getDuration());
         return dto;
+    }
+
+    @Override
+    public List<MovieDTO> getAllMovies(){
+        List<Movie> movies = movieRepository.findAll();
+        List<MovieDTO> moviesList = new ArrayList<>();
+        for(Movie mov : movies){
+            MovieDTO dto = new MovieDTO();
+            dto.setMovieId(mov.getId());
+            dto.setMovieName(mov.getName());
+            dto.setDuration(mov.getDuration());
+            dto.setGenre(mov.getGenre());
+            moviesList.add(dto);
+        }
+        return moviesList;
     }
 
     @Override

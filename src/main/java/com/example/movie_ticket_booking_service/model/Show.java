@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -24,7 +26,7 @@ public class Show {
     @JoinColumn(name = "movie_id")
     private Movie movie;
 
-    @Column
-    private Date time;
+    @Column(columnDefinition = "DATETIME")
+    private LocalDateTime time;
 
 }
