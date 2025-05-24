@@ -6,4 +6,6 @@ import com.example.movie_ticket_booking_service.dto.MovieDTO;
 public interface MovieService {
 
     MovieDTO getMovieDetails(Long movieId);
+
+    void saveMovie(MovieDTO dto);
 }

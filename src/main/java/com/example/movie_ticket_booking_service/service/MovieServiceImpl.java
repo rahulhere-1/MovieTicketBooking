@@ -1,7 +1,7 @@
 package com.example.movie_ticket_booking_service.service;
 
 
-import com.example.movie_ticket_booking_service.MovieNotFoundException;
+import com.example.movie_ticket_booking_service.exception.MovieNotFoundException;
 import com.example.movie_ticket_booking_service.dto.MovieDTO;
 import com.example.movie_ticket_booking_service.model.Movie;
 import com.example.movie_ticket_booking_service.repo.MovieRepository;
@@ -23,5 +23,14 @@ public class MovieServiceImpl implements MovieService {
         dto.setMovieName(movie.getName());
         dto.setDuration(movie.getDuration());
         return dto;
+    }
+
+    @Override
+    public void saveMovie(MovieDTO dto){
+        Movie movie = new Movie();
+        movie.setName(dto.getMovieName());
+        movie.setDuration(dto.getDuration());
+        movie.setGenre(dto.getGenre());
+        movieRepository.save(movie);
     }
 }

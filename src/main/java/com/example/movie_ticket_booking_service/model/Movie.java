@@ -1,5 +1,6 @@
 package com.example.movie_ticket_booking_service.model;
 
+import com.example.movie_ticket_booking_service.enums.Genre;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,6 +12,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Table(name = "tbl_movie")
 public class Movie {
 
     @Id
@@ -27,5 +29,8 @@ public class Movie {
     @Column
     private Date releaseDate;
 
+    @Column
+    @Enumerated(EnumType.STRING)
+    private Genre genre;
 
 }
