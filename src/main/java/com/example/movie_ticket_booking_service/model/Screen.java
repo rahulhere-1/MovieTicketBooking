@@ -15,6 +15,7 @@ import java.util.List;
 public class Screen {
 
     @Id
+    @Column(name = "screen_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long screenId;
 
@@ -24,8 +25,8 @@ public class Screen {
     @Column
     private int capacity;
 
-    @Column
-    @OneToMany(mappedBy = "screen",cascade = CascadeType.ALL)
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "screen")
     private List<Seat> seats;
 
     @ManyToOne

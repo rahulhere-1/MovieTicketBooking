@@ -7,6 +7,8 @@ import com.example.movie_ticket_booking_service.exception.TheaterNotFoundExcepti
 import com.example.movie_ticket_booking_service.model.Screen;
 import com.example.movie_ticket_booking_service.model.Seat;
 import com.example.movie_ticket_booking_service.model.Theater;
+import com.example.movie_ticket_booking_service.repo.ScreenRepository;
+import com.example.movie_ticket_booking_service.repo.SeatRepository;
 import com.example.movie_ticket_booking_service.repo.TheaterRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,12 +23,17 @@ public class TheaterServiceImpl implements TheaterService {
     @Autowired
     private TheaterRepository theaterRepository;
 
+    @Autowired
+    private ScreenRepository screenRepository;
+
+    @Autowired
+    private SeatRepository seatRepository;
+
     @Override
     public void addTheater(TheaterDTO dto){
         Theater theater = new Theater();
         theater.setTheaterName(dto.getTheaterName());
         theater.setCity(dto.getCity());
-        theater.setScreens(new ArrayList<>());
         theaterRepository.save(theater);
     }
 
@@ -36,12 +43,13 @@ public class TheaterServiceImpl implements TheaterService {
         Screen screen = new Screen();
         screen.setScreenName(screenDTO.getScreenName());
         screen.setCapacity(screenDTO.getCapacity());
-        screen.setSeats(createSeatsForScreen());
-        theater.getScreens().add(screen);
+        screen.setTheater(theater);
+        screenRepository.save(screen);
+        createSeatsForScreen(screen);
         theaterRepository.save(theater);
     }
 
-    private List<Seat> createSeatsForScreen() {
+    private void createSeatsForScreen(Screen screen) {
 
         List<Seat> seats = new ArrayList<>();
         for(int i=0;i<5;i++){
@@ -50,6 +58,7 @@ public class TheaterServiceImpl implements TheaterService {
                 StringBuilder sb = new StringBuilder("A"+i).append(Integer.toString(j));
                 seat.setSeatNumber(sb.toString());
                 seat.setSeatType(SeatType.CLASSIC);
+                seat.setScreen(screen);
                 seats.add(seat);
             }
         }
@@ -59,6 +68,7 @@ public class TheaterServiceImpl implements TheaterService {
                 StringBuilder sb = new StringBuilder("A"+i).append(Integer.toString(j));
                 seat.setSeatNumber(sb.toString());
                 seat.setSeatType(SeatType.PREMIUM);
+                seat.setScreen(screen);
                 seats.add(seat);
             }
         }
@@ -68,10 +78,11 @@ public class TheaterServiceImpl implements TheaterService {
                 StringBuilder sb = new StringBuilder("A"+i).append(Integer.toString(j));
                 seat.setSeatNumber(sb.toString());
                 seat.setSeatType(SeatType.GOLD);
+                seat.setScreen(screen);
                 seats.add(seat);
             }
         }
-        return seats;
+        seatRepository.saveAll(seats);
     }
 
     @Override

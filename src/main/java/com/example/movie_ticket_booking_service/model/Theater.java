@@ -23,7 +23,7 @@ public class Theater {
     @Column
     private String city;
 
-    @OneToMany(mappedBy = "theater")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "theater")
     private List<Screen> screens;
 
 }
