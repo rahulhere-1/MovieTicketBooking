@@ -74,6 +74,10 @@ public class ShowServiceImpl implements ShowService {
         show.setMovie(movie);
         showRepository.save(show);
     }
+    @Override
+    public void deleteByShowId(Long showId){
+        showRepository.deleteById(showId);
+    }
 
 
 }

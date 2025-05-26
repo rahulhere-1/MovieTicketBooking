@@ -31,4 +31,10 @@ public class ShowController {
         showService.createShowTime(request);
         return new ResponseEntity<>("show created successfully", HttpStatus.CREATED);
     }
+
+    @DeleteMapping("/delete")
+    public ResponseEntity<String> deleteShowTime(@RequestParam Long showId){
+        showService.deleteByShowId(showId);
+        return new ResponseEntity<>("show deleted successfully",HttpStatus.OK);
+    }
 }

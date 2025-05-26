@@ -1,6 +1,7 @@
 package com.example.movie_ticket_booking_service.service;
 
 
+import com.example.movie_ticket_booking_service.enums.Status;
 import com.example.movie_ticket_booking_service.exception.MovieNotFoundException;
 import com.example.movie_ticket_booking_service.dto.MovieDTO;
 import com.example.movie_ticket_booking_service.model.Movie;
@@ -33,12 +34,14 @@ public class MovieServiceImpl implements MovieService {
         List<Movie> movies = movieRepository.findAll();
         List<MovieDTO> moviesList = new ArrayList<>();
         for(Movie mov : movies){
-            MovieDTO dto = new MovieDTO();
-            dto.setMovieId(mov.getId());
-            dto.setMovieName(mov.getName());
-            dto.setDuration(mov.getDuration());
-            dto.setGenre(mov.getGenre());
-            moviesList.add(dto);
+            if(mov.getStatus()== Status.ACTIVE) {
+                MovieDTO dto = new MovieDTO();
+                dto.setMovieId(mov.getId());
+                dto.setMovieName(mov.getName());
+                dto.setDuration(mov.getDuration());
+                dto.setGenre(mov.getGenre());
+                moviesList.add(dto);
+            }
         }
         return moviesList;
     }

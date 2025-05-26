@@ -33,7 +33,7 @@ public class MovieController {
     @PostMapping("/save")
     public ResponseEntity<String> saveMovie(@RequestBody MovieDTO request){
         movieService.saveMovie(request);
-        return new ResponseEntity<>("saved successfully",HttpStatus.CREATED);
+        return new ResponseEntity<>("added movie successfully",HttpStatus.CREATED);
     }
 
     @GetMapping("/health-check")

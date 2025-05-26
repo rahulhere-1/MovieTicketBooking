@@ -8,4 +8,6 @@ public interface ShowService {
     ShowDTO getShowDetailsByMovieId(Long movieId);
 
     void createShowTime(ShowDTO showDTO);
+
+    void deleteByShowId(Long showId);
 }
