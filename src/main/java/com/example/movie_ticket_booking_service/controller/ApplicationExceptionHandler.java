@@ -3,7 +3,8 @@ package com.example.movie_ticket_booking_service.controller;
 import com.example.movie_ticket_booking_service.dto.ErrorResponse;
 import com.example.movie_ticket_booking_service.exception.MovieNotFoundException;
 import com.example.movie_ticket_booking_service.exception.ShowNotFoundException;
-import com.example.movie_ticket_booking_service.exception.UnableToCreateShowExcetion;
+import com.example.movie_ticket_booking_service.exception.TheaterNotFoundException;
+import com.example.movie_ticket_booking_service.exception.UnableToCreateShowException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -38,8 +39,8 @@ public class ApplicationExceptionHandler {
         return new ResponseEntity<>(error,error.getStatus());
     }
 
-    @ExceptionHandler(value = UnableToCreateShowExcetion.class)
-    public ResponseEntity<ErrorResponse> handleShowException(UnableToCreateShowExcetion exception){
+    @ExceptionHandler(value = UnableToCreateShowException.class)
+    public ResponseEntity<ErrorResponse> handleShowException(UnableToCreateShowException exception){
 
         ErrorResponse error = new ErrorResponse();
         error.setException(exception.getMessage());
@@ -50,7 +51,17 @@ public class ApplicationExceptionHandler {
         return new ResponseEntity<>(error,error.getStatus());
     }
 
+    @ExceptionHandler(value = TheaterNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleTheaterException(TheaterNotFoundException exception){
 
+        ErrorResponse error = new ErrorResponse();
+        error.setException(exception.getMessage());
+        error.setStatus(HttpStatus.NOT_FOUND);
+        error.setMessage(exception.getLocalizedMessage());
+        error.setTimestamp(LocalDateTime.now());
+
+        return new ResponseEntity<>(error,error.getStatus());
+    }
 
     @ExceptionHandler(value = Exception.class)
     public ResponseEntity<ErrorResponse> handleGlobalException(Exception anyException){
