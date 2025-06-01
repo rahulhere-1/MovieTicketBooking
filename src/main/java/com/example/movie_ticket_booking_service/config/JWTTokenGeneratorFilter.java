@@ -35,7 +35,7 @@ public class JWTTokenGeneratorFilter extends OncePerRequestFilter {
                             .claim("authorities",authentication.getAuthorities().stream().map(GrantedAuthority::getAuthority)
                                     .collect(Collectors.joining(",")))
                             .issuedAt(new Date())
-                            .expiration(new Date(new Date().getTime() + 30000000))
+                            .expiration(new Date(new Date().getTime() + 3000000))
                             .signWith(secretKey)
                             .compact();
                     response.setHeader("Authorization",jwtToken);
@@ -49,6 +49,6 @@ public class JWTTokenGeneratorFilter extends OncePerRequestFilter {
 
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
-        return !request.getContextPath().equals("/user");
+        return !request.getServletPath().equals("/user");
     }
 }
