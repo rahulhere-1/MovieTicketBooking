@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
@@ -27,5 +29,19 @@ public class Seat {
     @ManyToOne
     @JoinColumn(name = "screen_id")
     private Screen screen;
+
+    @ManyToMany(mappedBy = "seats")
+    private List<Booking> bookings;
+
+    public boolean isBookedForShow(Long showId) {
+        if (bookings == null || showId==null) return false;
+        for (Booking booking : bookings) {
+            if (booking.getShow() != null && booking.getShow().getId()== showId) {
+                return true; // Seat already booked for this show
+            }
+        }
+        return false;
+    }
+
 
 }
