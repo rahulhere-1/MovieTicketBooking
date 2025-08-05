@@ -42,8 +42,8 @@ This project is built with Spring Boot and delivers everything you need to searc
 1. **Clone the repo**
 
 ```sh
-git clone https://github.com/your-username/movie-ticket-booking.git
-cd movie-ticket-booking
+git clone https://github.com/your-username/MovieTicketBooking.git
+cd MovieTicketBooking
 ```
 
 2. **Build the project**
