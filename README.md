@@ -10,7 +10,6 @@ This project is built with Spring Boot and delivers everything you need to searc
     - Check showtimes and available seats for each movie.
 - **Book Tickets**
     - Select desired movie, time, and number of seats.
-    - Receive booking confirmation after successful payment (stubbed/payment integration optional).
 - **Manage Bookings**
     - View, update, or cancel bookings.
 - **Admin Panel**
@@ -24,10 +23,9 @@ This project is built with Spring Boot and delivers everything you need to searc
 ## Tech Stack
 
 - **Backend:** Java, Spring Boot
-- **Database:** H2 (in-memory by default, easy to switch to MySQL/Postgres)
+- **Database:** MySQL
 - **Security:** Spring Security with JWT
 - **ORM:** Spring Data JPA
-- **API Documentation:** Swagger (OpenAPI)
 - **Build Tool:** Maven
 
 
